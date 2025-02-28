@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=3 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://bcbk053glk03j" path="res://player.tscn" id="1_pwvb8"]
+[ext_resource type="Texture2D" uid="uid://beligts0bxuhs" path="res://8-player.png" id="2_mikq1"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
-position = Vector2(448, 204)
+position = Vector2(438, 203)
 max_speed = 500.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_mikq1")
