@@ -18,6 +18,9 @@ var held_item = null
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var interaction_ray: RayCast2D = $InteractionRay
 
+func _ready() -> void:
+	$PlayerAnimation.play("idle")
+
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	handle_interaction()
