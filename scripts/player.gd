@@ -15,7 +15,7 @@ var current_velocity: Vector2 = Vector2.ZERO
 var is_holding_item: bool = false
 var held_item = null
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $PlayerSprite
 @onready var interaction_ray: RayCast2D = $InteractionRay
 
 func _ready() -> void:
