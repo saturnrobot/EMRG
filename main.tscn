@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=4 format=3 uid="uid://c7e2gka1ivr60"]
 
+[ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="PackedScene" uid="uid://bcbk053glk03j" path="res://player.tscn" id="1_pwvb8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
 [node name="Main" type="Node2D"]
 
+[node name="House" parent="." instance=ExtResource("1_efsfi")]
+
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_amij4")
-position = Vector2(113, 101)
+position = Vector2(0, 1)
+scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
