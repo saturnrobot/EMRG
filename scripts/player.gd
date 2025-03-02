@@ -35,6 +35,11 @@ func handle_movement(delta: float) -> void:
 	input_vector = input_vector.normalized()
 	
 	if input_vector != Vector2.ZERO:
+		if(input_vector.x > 0): 
+			$PlayerSprite.flip_h = false
+		else:
+			$PlayerSprite.flip_h = true
+		$PlayerAnimation.play("walk-right")
 		current_velocity += input_vector * acceleration * delta
 		current_velocity = current_velocity.limit_length(max_speed)
 	else:
@@ -42,14 +47,15 @@ func handle_movement(delta: float) -> void:
 			current_velocity -= current_velocity.normalized() * friction * delta
 		else:
 			current_velocity = Vector2.ZERO
+			$PlayerAnimation.play("idle")
 	
 	velocity = current_velocity
 	move_and_slide()
 	
 	if input_vector != Vector2.ZERO:
 		var target_rotation = input_vector.angle()
-		sprite.rotation = lerp_angle(sprite.rotation, target_rotation, rotation_speed * delta)
-
+		#sprite.rotation = lerp_angle(sprite.rotation, target_rotation, rotation_speed * delta)
+	#Handle animation changes
 func handle_interaction() -> void:
 	if Input.is_action_just_pressed("interact"):
 		var collider = interaction_ray.get_collider()
