@@ -121,3 +121,5 @@ vframes = 4
 libraries = {
 "": SubResource("AnimationLibrary_t7wgy")
 }
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
