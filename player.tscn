@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bcbk053glk03j"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_60qlq"]
-[ext_resource type="Texture2D" uid="uid://damg17i3pnsu5" path="res://8-player.png" id="2_34eng"]
+[ext_resource type="Texture2D" uid="uid://dn3mcm3l2ps4o" path="res://8-player.png" id="2_34eng"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0rpbd"]
 
