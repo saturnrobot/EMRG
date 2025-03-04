@@ -12,11 +12,12 @@
 script = ExtResource("1_eltr2")
 
 [node name="House" parent="." instance=ExtResource("1_efsfi")]
+position = Vector2(8, 20)
 
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_amij4")
-position = Vector2(0, 1)
+position = Vector2(-13, -73)
 scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
 friction = 10000.0
