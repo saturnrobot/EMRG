@@ -5,6 +5,12 @@ var time_started: float
 var actions_performed: Array = [] 
 var is_large_fire: bool = false
 
+@onready var score_display = $ScoreDisplay
+@onready var actions_display = $ActionsDisplay
+@onready var scenario_display = $ScenarioDisplay
+@onready var optimal_sequence_display = $OptimalSequenceDisplay
+@onready var restart_prompt = $RestartPrompt
+
 const POINTS = {
 	"fire_discovered": 15,
 	"activated_alarm": 20,
@@ -18,6 +24,14 @@ const ORDER_BONUS = 25
 func _ready() -> void:
 	time_started = Time.get_ticks_msec()
 	add_to_group("score_manager")
+	hide_ui_elements()
+
+func hide_ui_elements() -> void:
+	score_display.hide()
+	actions_display.hide()
+	scenario_display.hide()
+	optimal_sequence_display.hide()
+	restart_prompt.hide()
 
 func set_fire_size(is_large: bool) -> void:
 	is_large_fire = is_large
@@ -33,7 +47,7 @@ func record_action(action: String, success: bool) -> void:
 func add_base_points(action: String) -> void:
 	if action in POINTS:
 		current_score += POINTS[action]
-		print("Added %d points for %s" % [POINTS[action], action])
+		update_score_display()
 
 func check_order_bonus() -> void:
 	if is_large_fire:
@@ -68,25 +82,36 @@ func check_sequence(correct_order: Array) -> void:
 		
 		if sequence_correct and not bonus_given:
 			current_score += ORDER_BONUS
-			print("Added %d bonus points for correct order!" % ORDER_BONUS)
 			bonus_given = true
 
 func calculate_final_score() -> int:
 	var time_taken = (Time.get_ticks_msec() - time_started) / 1000.0
 	if time_taken > 300:
 		current_score -= 20
-		print("Subtracted 20 points for taking too long")
 	return current_score
+
+func update_score_display() -> void:
+	score_display.text = "Score: %d" % current_score
 
 func display_score() -> void:
 	var final_score = calculate_final_score()
-	print("\nFinal Score Breakdown:")
-	print("Actions performed in order:", actions_performed)
-	print("Final Score:", final_score)
+	
+	score_display.show()
+	actions_display.show()
+	scenario_display.show()
+	optimal_sequence_display.show()
+	restart_prompt.show()
+	
+	score_display.text = "Final Score: %d" % final_score
+	actions_display.text = "Actions Performed:\n" + "\n".join(actions_performed)
+	
 	if is_large_fire:
-		print("This was a large fire scenario")
-		print("Optimal sequence: Discover Fire -> Activate Alarm -> Exit Building")
+		scenario_display.text = "LARGE FIRE SCENARIO"
+		optimal_sequence_display.text = "Optimal Response:\n1. Discover Fire\n2. Activate Alarm\n3. Exit Building Immediately"
 	else:
-		print("This was a small fire scenario")
-		print("Optimal sequence: Discover Fire -> Grab Extinguisher -> Extinguish Fire")
+		scenario_display.text = "SMALL FIRE SCENARIO"
+		optimal_sequence_display.text = "Optimal Response:\n1. Discover Fire\n2. Grab Fire Extinguisher\n3. Extinguish Fire"
+	
+	restart_prompt.text = "Press R to Restart"
+	
 	get_tree().paused = true
