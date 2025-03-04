@@ -9,6 +9,7 @@ var is_large_fire: bool = false
 @onready var actions_display = $ActionsDisplay
 @onready var scenario_display = $ScenarioDisplay
 @onready var optimal_sequence_display = $OptimalSequenceDisplay
+@onready var time_display = $TimeDisplay
 @onready var restart_prompt = $RestartPrompt
 
 const POINTS = {
@@ -32,6 +33,7 @@ func hide_ui_elements() -> void:
 	scenario_display.hide()
 	optimal_sequence_display.hide()
 	restart_prompt.hide()
+	time_display.hide()
 
 func set_fire_size(is_large: bool) -> void:
 	is_large_fire = is_large
@@ -101,9 +103,12 @@ func display_score() -> void:
 	scenario_display.show()
 	optimal_sequence_display.show()
 	restart_prompt.show()
+	time_display.show()
 	
 	score_display.text = "Final Score: %d" % final_score
 	actions_display.text = "Actions Performed:\n" + "\n".join(actions_performed)
+	
+	time_display.text = "Time: " + str((Time.get_ticks_msec() - time_started) / 1000.0)
 	
 	if is_large_fire:
 		scenario_display.text = "LARGE FIRE SCENARIO"
