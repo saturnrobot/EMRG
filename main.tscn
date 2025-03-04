@@ -1,15 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=12 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eltr2"]
 [ext_resource type="PackedScene" uid="uid://bcbk053glk03j" path="res://player.tscn" id="1_pwvb8"]
+[ext_resource type="PackedScene" uid="uid://moo3tlqthjpi" path="res://scenes/fire.tscn" id="2_cbajk"]
 [ext_resource type="AudioStream" uid="uid://ccvey3s13i5bd" path="res://music/theme-4.ogg" id="3_o8y4u"]
 [ext_resource type="AudioStream" uid="uid://bhg88nponvs4u" path="res://music/theme-1.ogg" id="4_4rqno"]
+[ext_resource type="Script" path="res://scripts/score_manager.gd" id="7_npp14"]
+[ext_resource type="PackedScene" uid="uid://bv21fqqsmxdsk" path="res://scenes/extinguisher.tscn" id="8_713w2"]
+[ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
+[ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_eltr2")
+fire_scene = ExtResource("2_cbajk")
+possible_fire_locations = Array[NodePath]([NodePath("Fire Locations/Fire Location 1"), NodePath("Fire Locations/Fire Location 2")])
+time_to_fire = 1.0
 
 [node name="House" parent="." instance=ExtResource("1_efsfi")]
 position = Vector2(8, 20)
@@ -21,6 +29,7 @@ position = Vector2(-13, -73)
 scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
 friction = 10000.0
+fire_detection_distance = 200.0
 
 [node name="Background Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_o8y4u")
@@ -30,3 +39,27 @@ autoplay = true
 [node name="Fire Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4rqno")
 volume_db = -30.0
+
+[node name="Fire Locations" type="Node" parent="."]
+
+[node name="Fire Location 1" type="Node2D" parent="Fire Locations"]
+position = Vector2(-201, -191)
+
+[node name="Fire Location 2" type="Node2D" parent="Fire Locations"]
+position = Vector2(-520, -177)
+
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource("7_npp14")
+
+[node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
+position = Vector2(149, -107)
+
+[node name="Exit" parent="." instance=ExtResource("10_i1rq8")]
+position = Vector2(158, 258)
+scale = Vector2(0.662041, 0.5911)
+
+[node name="Extinguisher" parent="." instance=ExtResource("8_713w2")]
+position = Vector2(-15, -218)
+
+[connection signal="alarm_activated" from="Alarm" to="." method="_on_alarm_alarm_activated"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]

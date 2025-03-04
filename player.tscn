@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcbk053glk03j"]
+[gd_scene load_steps=10 format=3 uid="uid://bcbk053glk03j"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_60qlq"]
 [ext_resource type="Texture2D" uid="uid://dn3mcm3l2ps4o" path="res://8-player.png" id="2_34eng"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eodxm"]
 size = Vector2(72.9999, 45.3448)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78myd"]
+size = Vector2(123.5, 122)
 
 [sub_resource type="Animation" id="Animation_57goi"]
 length = 0.001
@@ -110,7 +113,12 @@ position = Vector2(71.5, 115.7)
 scale = Vector2(1, 1.16)
 shape = SubResource("RectangleShape2D_eodxm")
 
-[node name="InteractionRay" type="RayCast2D" parent="."]
+[node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(70, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(1, -113)
+shape = SubResource("RectangleShape2D_78myd")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture_filter = 1

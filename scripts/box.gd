@@ -9,7 +9,7 @@ func on_pickup(player: PlayerController) -> void:
 	collision_mask = 0
 	global_position = player.global_position
 
-func on_drop(player: PlayerController) -> void:
+func on_drop(_player: PlayerController) -> void:
 	held = false
 	collision_layer = 1
 	collision_mask = 1

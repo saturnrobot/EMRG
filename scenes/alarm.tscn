@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3g40k2m6lqji"]
+
+[ext_resource type="Script" path="res://scripts/alarm.gd" id="1_ss6dx"]
+[ext_resource type="Texture2D" uid="uid://c7ghvgbtmgbiv" path="res://assets/alarm.png" id="2_rk1ol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvfkd"]
+size = Vector2(16, 24)
+
+[node name="Alarm" type="StaticBody2D"]
+script = ExtResource("1_ss6dx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 12)
+shape = SubResource("RectangleShape2D_qvfkd")
+
+[node name="Alarm" type="Sprite2D" parent="."]
+position = Vector2(8, 12)
+scale = Vector2(0.0257006, 0.0257006)
+texture = ExtResource("2_rk1ol")

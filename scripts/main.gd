@@ -7,39 +7,33 @@ class_name Main
 
 var current_time: float = 0.0
 var fire: bool = false
+var is_large_fire: bool = false
 
 @onready var score_manager = $ScoreManager
 @onready var player = $Player
 
 func _ready() -> void:
-	connect_signals()
+	score_manager.add_to_group("score_manager")
 
-func connect_signals() -> void:
-	for alarm in get_tree().get_nodes_in_group("fire_alarms"):
-		alarm.alarm_activated.connect(_on_alarm_activated)
-
-func _on_alarm_activated() -> void:
+func _on_alarm_alarm_activated() -> void:
 	score_manager.record_action("activated_alarm", true)
 
 func spawn_initial_fire() -> void:
-	if fire_scene == null:
-		push_error("Fire scene not set!")
-		return
-		
-	if possible_fire_locations.is_empty():
-		push_error("No fire spawn locations set!")
-		return
-		
+	is_large_fire = randf() > 0.5
+	score_manager.set_fire_size(is_large_fire)
+	
 	var random_location_path = possible_fire_locations[randi() % possible_fire_locations.size()]
 	var spawn_point = get_node(random_location_path)
 	
-	if spawn_point == null:
-		push_error("Invalid spawn point!")
-		return
-		
-	var fire = fire_scene.instantiate()
-	add_child(fire)
-	fire.global_position = spawn_point.global_position
+	var fire_instance = fire_scene.instantiate()
+	add_child(fire_instance)
+	fire_instance.global_position = spawn_point.global_position
+	fire_instance.initialize(is_large_fire)
+
+func _on_exit_body_entered(body: Node2D) -> void:
+	if body is PlayerController:
+		score_manager.record_action("exited_building", true)
+		score_manager.display_score()
 
 func _process(delta: float) -> void:
 	current_time+=delta
