@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=17 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eltr2"]
@@ -6,11 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://moo3tlqthjpi" path="res://scenes/fire.tscn" id="2_cbajk"]
 [ext_resource type="AudioStream" uid="uid://ccvey3s13i5bd" path="res://music/theme-4.ogg" id="3_o8y4u"]
 [ext_resource type="AudioStream" uid="uid://bhg88nponvs4u" path="res://music/theme-1.ogg" id="4_4rqno"]
+[ext_resource type="Shader" path="res://shaders/alarm.gdshader" id="5_krrih"]
+[ext_resource type="Texture2D" uid="uid://b67v7lyuu8ir6" path="res://assets/square.png" id="6_icvxr"]
 [ext_resource type="Script" path="res://scripts/score_manager.gd" id="7_npp14"]
 [ext_resource type="PackedScene" uid="uid://bv21fqqsmxdsk" path="res://scenes/extinguisher.tscn" id="8_713w2"]
 [ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
 [ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
 [ext_resource type="Script" path="res://scripts/restart_manager.gd" id="11_276ya"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv1pf"]
+shader = ExtResource("5_krrih")
+shader_parameter/color_a = Color(0, 0, 0, 0)
+shader_parameter/color_b = Color(1, 0.294118, 0.27451, 0.341176)
+shader_parameter/colors_affect_alpha = true
+shader_parameter/flash_amount = 1.0
+shader_parameter/flash_speed = 4.0
+shader_parameter/transparency = 1.0
+shader_parameter/intensity = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
@@ -30,6 +42,12 @@ position = Vector2(8, 20)
 
 [node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
 position = Vector2(149, -107)
+
+[node name="AlarmShader" type="Sprite2D" parent="Alarm"]
+material = SubResource("ShaderMaterial_hv1pf")
+position = Vector2(-745, 408)
+scale = Vector2(5.90312, 2.78073)
+texture = ExtResource("6_icvxr")
 
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
@@ -134,6 +152,7 @@ label_settings = SubResource("LabelSettings_ui2lh")
 horizontal_alignment = 1
 
 [node name="TimeDisplay" type="Label" parent="ScoreManager"]
+offset_left = 38.0
 offset_right = 314.0
 offset_bottom = 34.0
 text = "BLAH BLAH  BLAH BLAH"

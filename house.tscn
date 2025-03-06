@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bufkvykoxnlmx" path="res://interiorprops.png" id="2_yvmk4"]
 [ext_resource type="Texture2D" uid="uid://384fr1c8is1f" path="res://interior.png" id="4_lljks"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t0da1"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_etyer"]
 bounce = 0.29
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6h61v"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cora5"]
 texture = ExtResource("1_2nlyj")
 texture_region_size = Vector2i(33, 33)
 0:0/0 = 0
@@ -149,13 +149,13 @@ texture_region_size = Vector2i(33, 33)
 [sub_resource type="TileSet" id="TileSet_oplme"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_t0da1")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_etyer")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "PinkCorner"
 terrain_set_0/terrain_0/color = Color(1, 0.682353, 0.87451, 1)
-sources/0 = SubResource("TileSetAtlasSource_6h61v")
+sources/0 = SubResource("TileSetAtlasSource_cora5")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwygb"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w7hou"]
 texture = ExtResource("2_yvmk4")
 texture_region_size = Vector2i(18, 16)
 1:1/0 = 0
@@ -1363,7 +1363,7 @@ texture_region_size = Vector2i(18, 16)
 15:27/0 = 0
 14:27/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s4u06"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vxc6i"]
 texture = ExtResource("4_lljks")
 texture_region_size = Vector2i(32, 32)
 2:0/0 = 0
@@ -2499,8 +2499,8 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_y64i8"]
 tile_size = Vector2i(32, 32)
-sources/2 = SubResource("TileSetAtlasSource_s4u06")
-sources/0 = SubResource("TileSetAtlasSource_bwygb")
+sources/2 = SubResource("TileSetAtlasSource_vxc6i")
+sources/0 = SubResource("TileSetAtlasSource_w7hou")
 
 [node name="House" type="Node2D"]
 
