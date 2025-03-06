@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv21fqqsmxdsk"]
+
+[ext_resource type="Texture2D" uid="uid://xm8n8u6enm23" path="res://assets/extinguisher.png" id="1_p5vxq"]
+[ext_resource type="Script" path="res://scripts/extinguisher.gd" id="1_r8c8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adf0a"]
+size = Vector2(74, 147)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tb6qs"]
+radius = 54.0
+height = 242.0
+
+[node name="Extinguisher" type="RigidBody2D"]
+freeze = true
+script = ExtResource("1_r8c8v")
+
+[node name="Extinguisher" type="Sprite2D" parent="."]
+position = Vector2(7.15564, 14.1179)
+rotation = 3.14159
+scale = Vector2(0.32007, -0.314268)
+texture = ExtResource("1_p5vxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.15564, 14.3113)
+scale = Vector2(0.193396, 0.193396)
+shape = SubResource("RectangleShape2D_adf0a")
+
+[node name="SprayArea" type="Area2D" parent="."]
+scale = Vector2(0.193396, 0.193396)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SprayArea"]
+position = Vector2(-101, 18)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tb6qs")
+
+[node name="SprayParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-18.1792, 2.70754)
+scale = Vector2(0.193396, 0.193396)
+emitting = false
+amount = 500
+emission_shape = 3
+emission_rect_extents = Vector2(70, 5)
+spread = 45.88
+gravity = Vector2(-300, 0)
+initial_velocity_min = 29.69
+initial_velocity_max = 158.42
+linear_accel_min = 23.76
+linear_accel_max = 27.72
+scale_amount_min = 5.0
+scale_amount_max = 5.0

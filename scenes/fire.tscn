@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://moo3tlqthjpi"]
+
+[ext_resource type="Script" path="res://scripts/fire.gd" id="1_c18wa"]
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="1_vw5ss"]
+
+[sub_resource type="Gradient" id="Gradient_hbmae"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2ibel"]
+gradient = SubResource("Gradient_hbmae")
+fill_to = Vector2(1, 1)
+repeat = 1
+
+[sub_resource type="Gradient" id="Gradient_c0gyq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o1ijl"]
+seed = 99
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0ywp6"]
+seamless = true
+color_ramp = SubResource("Gradient_c0gyq")
+noise = SubResource("FastNoiseLite_o1ijl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_du733"]
+shader = ExtResource("1_vw5ss")
+shader_parameter/brighter_color = Vector4(1, 0.8, 0, 1)
+shader_parameter/middle_color = Vector4(1, 0.56, 0, 1)
+shader_parameter/darker_color = Vector4(0.64, 0.2, 0.05, 1)
+shader_parameter/spread = 0.5
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_0ywp6")
+shader_parameter/gradient_tex = SubResource("GradientTexture2D_2ibel")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf5r8"]
+size = Vector2(29, 29)
+
+[node name="Fire" type="StaticBody2D"]
+script = ExtResource("1_c18wa")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_du733")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21.5, 20.5)
+shape = SubResource("RectangleShape2D_kf5r8")
+
+[node name="SpreadTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="SpreadTimer" to="." method="_on_spread_timer_timeout"]

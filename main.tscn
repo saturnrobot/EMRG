@@ -1,25 +1,44 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=14 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eltr2"]
 [ext_resource type="PackedScene" uid="uid://bcbk053glk03j" path="res://player.tscn" id="1_pwvb8"]
+[ext_resource type="PackedScene" uid="uid://moo3tlqthjpi" path="res://scenes/fire.tscn" id="2_cbajk"]
 [ext_resource type="AudioStream" uid="uid://ccvey3s13i5bd" path="res://music/theme-4.ogg" id="3_o8y4u"]
 [ext_resource type="AudioStream" uid="uid://bhg88nponvs4u" path="res://music/theme-1.ogg" id="4_4rqno"]
+[ext_resource type="Script" path="res://scripts/score_manager.gd" id="7_npp14"]
+[ext_resource type="PackedScene" uid="uid://bv21fqqsmxdsk" path="res://scenes/extinguisher.tscn" id="8_713w2"]
+[ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
+[ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
+[ext_resource type="Script" path="res://scripts/restart_manager.gd" id="11_276ya"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_ui2lh"]
+font_size = 24
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_eltr2")
+fire_scene = ExtResource("2_cbajk")
+possible_fire_locations = Array[NodePath]([NodePath("Fire Locations/Fire Location 1"), NodePath("Fire Locations/Fire Location 2")])
+time_to_fire = 1.0
 
 [node name="House" parent="." instance=ExtResource("1_efsfi")]
+position = Vector2(8, 20)
+
+[node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
+position = Vector2(149, -107)
 
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_amij4")
-position = Vector2(0, 1)
+position = Vector2(-13, -73)
 scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
 friction = 10000.0
+fire_detection_distance = 200.0
 
 [node name="Background Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_o8y4u")
@@ -29,3 +48,108 @@ autoplay = true
 [node name="Fire Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4rqno")
 volume_db = -30.0
+
+[node name="Fire Locations" type="Node" parent="."]
+
+[node name="Fire Location 1" type="Node2D" parent="Fire Locations"]
+position = Vector2(-201, -191)
+
+[node name="Fire Location 2" type="Node2D" parent="Fire Locations"]
+position = Vector2(-520, -177)
+
+[node name="ScoreManager" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("7_npp14")
+
+[node name="ScoreDisplay" type="Label" parent="ScoreManager"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -157.0
+offset_right = 157.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="ActionsDisplay" type="Label" parent="ScoreManager"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -126.0
+offset_right = 157.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="ScenarioDisplay" type="Label" parent="ScoreManager"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -138.0
+offset_top = 54.0
+offset_right = 138.0
+offset_bottom = 88.0
+grow_horizontal = 2
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="OptimalSequenceDisplay" type="Label" parent="ScoreManager"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = 81.0
+offset_right = 157.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="RestartPrompt" type="Label" parent="ScoreManager"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -34.0
+offset_right = 157.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="TimeDisplay" type="Label" parent="ScoreManager"]
+offset_right = 314.0
+offset_bottom = 34.0
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+
+[node name="Exit" parent="." instance=ExtResource("10_i1rq8")]
+position = Vector2(158, 258)
+scale = Vector2(0.662041, 0.5911)
+
+[node name="Extinguisher" parent="." instance=ExtResource("8_713w2")]
+position = Vector2(-15, -218)
+
+[node name="Restart Manager" type="Node2D" parent="."]
+process_mode = 3
+script = ExtResource("11_276ya")
+
+[connection signal="alarm_activated" from="Alarm" to="." method="_on_alarm_alarm_activated"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
