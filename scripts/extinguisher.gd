@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name FireExtinguisher
 
 var held: bool = false
+var activated: bool = false
 var spray_particles: CPUParticles2D
 var spray_area: Area2D
 @export var offset_distance: float = 20.0
@@ -39,10 +40,15 @@ func on_drop(_player: PlayerController) -> void:
 func activate() -> void:
 	if held:
 		spray_particles.emitting = true
+		if not activated:
+			get_node("Extinguisher Sound").playing = true
+			activated = true
 		check_fire_collision()
 
 func deactivate() -> void:
 	spray_particles.emitting = false
+	get_node("Extinguisher Sound").playing = false
+	activated = false
 
 func check_fire_collision() -> void:
 	var bodies = spray_area.get_overlapping_bodies()

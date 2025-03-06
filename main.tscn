@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=16 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eltr2"]
@@ -8,9 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://bhg88nponvs4u" path="res://music/theme-1.ogg" id="4_4rqno"]
 [ext_resource type="Script" path="res://scripts/score_manager.gd" id="7_npp14"]
 [ext_resource type="PackedScene" uid="uid://bv21fqqsmxdsk" path="res://scenes/extinguisher.tscn" id="8_713w2"]
+[ext_resource type="AudioStream" uid="uid://xspc73vew4c0" path="res://music/fire-alarm-33770.mp3" id="8_lx2pp"]
 [ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
 [ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
 [ext_resource type="Script" path="res://scripts/restart_manager.gd" id="11_276ya"]
+[ext_resource type="AudioStream" uid="uid://w7e0yrehgbg" path="res://music/extinguisher.mp3" id="12_qwb7x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
@@ -30,6 +32,11 @@ position = Vector2(8, 20)
 
 [node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
 position = Vector2(149, -107)
+
+[node name="Fire Alarm" type="AudioStreamPlayer" parent="Alarm"]
+stream = ExtResource("8_lx2pp")
+volume_db = -20.0
+bus = &"Alarm"
 
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
@@ -146,6 +153,11 @@ scale = Vector2(0.662041, 0.5911)
 
 [node name="Extinguisher" parent="." instance=ExtResource("8_713w2")]
 position = Vector2(-15, -218)
+
+[node name="Extinguisher Sound" type="AudioStreamPlayer" parent="Extinguisher"]
+stream = ExtResource("12_qwb7x")
+volume_db = -5.0
+bus = &"Extinguisher"
 
 [node name="Restart Manager" type="Node2D" parent="."]
 process_mode = 3
