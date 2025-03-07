@@ -1,15 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3g40k2m6lqji"]
+[gd_scene load_steps=7 format=3 uid="uid://b3g40k2m6lqji"]
 
 [ext_resource type="Script" path="res://scripts/alarm.gd" id="1_ss6dx"]
 [ext_resource type="Texture2D" uid="uid://c7ghvgbtmgbiv" path="res://assets/alarm.png" id="2_rk1ol"]
+[ext_resource type="Shader" path="res://shaders/alarm.gdshader" id="3_av8h4"]
+[ext_resource type="Texture2D" uid="uid://b67v7lyuu8ir6" path="res://assets/square.png" id="4_5fg7b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvfkd"]
 size = Vector2(16, 24)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_46ubg"]
+shader = ExtResource("3_av8h4")
+shader_parameter/color_a = Color(0, 0, 0, 0)
+shader_parameter/color_b = Color(1, 0.294118, 0.27451, 0.341176)
+shader_parameter/colors_affect_alpha = true
+shader_parameter/flash_amount = 1.0
+shader_parameter/flash_speed = 4.0
+shader_parameter/transparency = 1.0
+shader_parameter/intensity = 1.0
+
 [node name="Alarm" type="StaticBody2D"]
 script = ExtResource("1_ss6dx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="AlarmShape" type="CollisionShape2D" parent="."]
 position = Vector2(8, 12)
 shape = SubResource("RectangleShape2D_qvfkd")
 
@@ -17,3 +29,10 @@ shape = SubResource("RectangleShape2D_qvfkd")
 position = Vector2(8, 12)
 scale = Vector2(0.0257006, 0.0257006)
 texture = ExtResource("2_rk1ol")
+
+[node name="AlarmShader" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_46ubg")
+position = Vector2(-745, 408)
+scale = Vector2(5.90312, 2.78073)
+texture = ExtResource("4_5fg7b")

@@ -17,7 +17,8 @@ func _ready() -> void:
 
 func _on_alarm_alarm_activated() -> void:
 	score_manager.record_action("activated_alarm", true)
-
+	$Alarm/AlarmShader.visible = true
+	
 func spawn_initial_fire() -> void:
 	is_large_fire = randf() > 0.5
 	score_manager.set_fire_size(is_large_fire)
