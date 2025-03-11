@@ -121,10 +121,10 @@ func check_fire_proximity() -> void:
 	for fire in fires:
 		if global_position.distance_to(fire.global_position) < fire_detection_distance:
 			fire.discover()
-		if global_position.distance_to(fire.global_position) < 100.0:
+		if global_position.distance_to(fire.global_position) < 200.0:
 			if health_bar_timer.is_stopped():
 				health_bar_timer.start()
-		if global_position.distance_to(fire.global_position) > 100.0:
+		if global_position.distance_to(fire.global_position) > 200.0:
 			health_bar_timer.stop()
 
 func _on_health_bar_value_changed(change: float) -> void:
