@@ -24,6 +24,9 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("1_eltr2")
 fire_scene = ExtResource("2_cbajk")
 possible_fire_locations = Array[NodePath]([NodePath("Fire Locations/Fire Location 1"), NodePath("Fire Locations/Fire Location 2")])
+extinguisher_locations = null
+alarm_locations = null
+exit_locations = null
 time_to_fire = 1.0
 
 [node name="House" parent="." instance=ExtResource("1_efsfi")]

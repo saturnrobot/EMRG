@@ -117,3 +117,4 @@ func check_fire_proximity() -> void:
 	for fire in fires:
 		if global_position.distance_to(fire.global_position) < fire_detection_distance:
 			fire.discover()
+	

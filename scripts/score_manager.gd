@@ -1,6 +1,9 @@
 extends Node
 
 var current_score: int = 0
+var total_score: int = 0
+var current_level: int = 1
+var total_levels: int = 2
 var time_started: float
 var actions_performed: Array = [] 
 var is_large_fire: bool = false
@@ -117,6 +120,21 @@ func display_score() -> void:
 		scenario_display.text = "SMALL FIRE SCENARIO"
 		optimal_sequence_display.text = "Optimal Response:\n1. Discover Fire\n2. Grab Fire Extinguisher\n3. Extinguish Fire"
 	
-	restart_prompt.text = "Press R to Restart"
+	#restart_prompt.text = "Press R to Restart"
+	
+	if current_level == total_levels:
+		restart_prompt.text = "Press R to Restart\nPress Esc to Exit"
+	else:
+		restart_prompt.text = "Press R to Restart\nPress N for Next Level"
 	
 	get_tree().paused = true
+
+func reset_for_new_level() -> void:
+	total_score += current_score
+	
+	current_score = 0
+	time_started = Time.get_ticks_msec()
+	actions_performed.clear()
+	
+	update_score_display()
+	hide_ui_elements()
