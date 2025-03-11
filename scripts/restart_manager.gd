@@ -5,6 +5,8 @@ extends Node2D
 @onready var library_scene = get_node("../Library")
 @onready var main = get_node("../../Main")
 @onready var score_manager = get_tree().get_first_node_in_group("score_manager")
+@onready var alarm = get_node("../Alarm")
+@onready var extinguisher = get_node("../Extinguisher")
 
 # Position far away to hide the library
 const FAR_AWAY_POSITION = Vector2(10000, 10000)
@@ -44,6 +46,10 @@ func load_level(is_loading_same_level: int) -> void:
 		if score_manager.current_level == 1:
 			get_tree().reload_current_scene()
 		elif score_manager.current_level == 2:
+			extinguisher.get_node("Extinguisher Sound").playing = false
+			alarm.get_node("Fire Alarm").playing = false 
+			alarm.get_node("AlarmShader").visible = false
+			alarm.OFF()
 			for fire in get_tree().get_nodes_in_group("fires"):
 				fire.queue_free()
 			
