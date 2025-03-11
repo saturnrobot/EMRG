@@ -39,3 +39,6 @@ func _on_spread_timer_timeout() -> void:
 	if intensity < 1.5:
 		intensity += 0.1
 		self.scale *= 1.1
+	else:
+		is_large = true
+		spread_timer.stop()

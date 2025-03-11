@@ -18,6 +18,7 @@ var damage_start = true;
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var health_bar = $HealthBar
 @onready var health_bar_timer = $HealthBarTimer
+@onready var exclamation: Sprite2D = $Exclamation
 
 func _ready() -> void:
 	$PlayerAnimation.play("idle")
@@ -120,6 +121,10 @@ func check_fire_proximity() -> void:
 	var fires = get_tree().get_nodes_in_group("fires")
 	for fire in fires:
 		if global_position.distance_to(fire.global_position) < fire_detection_distance:
+			if !fire.discovered:		
+				exclamation.visible = true
+				await get_tree().create_timer(2.0).timeout
+				exclamation.visible = false
 			fire.discover()
 		if global_position.distance_to(fire.global_position) < 200.0:
 			if health_bar_timer.is_stopped():
