@@ -159,6 +159,7 @@ label_settings = SubResource("LabelSettings_ui2lh")
 horizontal_alignment = 1
 
 [node name="TimeDisplay" type="Label" parent="ScoreManager"]
+offset_left = 38.0
 offset_right = 314.0
 offset_bottom = 34.0
 text = "BLAH BLAH  BLAH BLAH"
