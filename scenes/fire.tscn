@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://moo3tlqthjpi"]
 
-[ext_resource type="Script" path="res://scripts/fire.gd" id="1_c18wa"]
-[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="1_vw5ss"]
+[ext_resource type="Script" uid="uid://b243fbbp7aexm" path="res://scripts/fire.gd" id="1_c18wa"]
+[ext_resource type="Shader" uid="uid://diu85il3qco14" path="res://shaders/fire.gdshader" id="1_vw5ss"]
 
 [sub_resource type="Gradient" id="Gradient_hbmae"]
 
@@ -22,12 +22,12 @@ noise = SubResource("FastNoiseLite_o1ijl")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_du733"]
 shader = ExtResource("1_vw5ss")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_0ywp6")
+shader_parameter/gradient_tex = SubResource("GradientTexture2D_2ibel")
 shader_parameter/brighter_color = Vector4(1, 0.8, 0, 1)
 shader_parameter/middle_color = Vector4(1, 0.56, 0, 1)
 shader_parameter/darker_color = Vector4(0.64, 0.2, 0.05, 1)
 shader_parameter/spread = 0.5
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_0ywp6")
-shader_parameter/gradient_tex = SubResource("GradientTexture2D_2ibel")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf5r8"]
 size = Vector2(29, 29)

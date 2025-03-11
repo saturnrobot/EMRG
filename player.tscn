@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bcbk053glk03j"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_60qlq"]
+[ext_resource type="Script" uid="uid://i5dx4lige4gt" path="res://scripts/player.gd" id="1_60qlq"]
 [ext_resource type="Texture2D" uid="uid://dn3mcm3l2ps4o" path="res://8-player.png" id="2_34eng"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eodxm"]
@@ -99,10 +99,10 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t7wgy"]
 _data = {
-"RESET": SubResource("Animation_57goi"),
-"idle": SubResource("Animation_0kyi7"),
-"interact": SubResource("Animation_sbbhk"),
-"walk-right": SubResource("Animation_j7ptc")
+&"RESET": SubResource("Animation_57goi"),
+&"idle": SubResource("Animation_0kyi7"),
+&"interact": SubResource("Animation_sbbhk"),
+&"walk-right": SubResource("Animation_j7ptc")
 }
 
 [node name="Player" type="CharacterBody2D"]
