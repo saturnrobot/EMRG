@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=14 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" uid="uid://clptguy7acyax" path="res://scripts/main.gd" id="1_eltr2"]
@@ -6,25 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://moo3tlqthjpi" path="res://scenes/fire.tscn" id="2_cbajk"]
 [ext_resource type="AudioStream" uid="uid://ccvey3s13i5bd" path="res://music/theme-4.ogg" id="3_o8y4u"]
 [ext_resource type="AudioStream" uid="uid://bhg88nponvs4u" path="res://music/theme-1.ogg" id="4_4rqno"]
-[ext_resource type="Script" uid="uid://d4ieagshi4p7q" path="res://scripts/score_manager.gd" id="7_npp14"]
+[ext_resource type="Script" uid="uid://bm4h2kmkkokxa" path="res://scripts/score_manager.gd" id="7_npp14"]
 [ext_resource type="PackedScene" uid="uid://bv21fqqsmxdsk" path="res://scenes/extinguisher.tscn" id="8_713w2"]
-[ext_resource type="AudioStream" uid="uid://xspc73vew4c0" path="res://music/fire-alarm-33770.mp3" id="8_lx2pp"]
 [ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
 [ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
-<<<<<<< HEAD
-[ext_resource type="Script" uid="uid://ciaox3hrvbd0n" path="res://scripts/restart_manager.gd" id="11_276ya"]
-=======
-[ext_resource type="Script" path="res://scripts/restart_manager.gd" id="11_276ya"]
-[ext_resource type="AudioStream" uid="uid://w7e0yrehgbg" path="res://music/extinguisher.mp3" id="12_qwb7x"]
->>>>>>> a37b14a176356ab6c0e9e708bee82fff3ed3a174
+[ext_resource type="Script" uid="uid://pjlc5r8b21tc" path="res://scripts/restart_manager.gd" id="11_276ya"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b8rr"]
-bg_color = Color(1, 0.341012, 0.296252, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f47ey"]
-bg_color = Color(0, 0.721216, 0.309921, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ui2lh"]
 font_size = 24
@@ -43,11 +31,6 @@ position = Vector2(8, 20)
 [node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
 position = Vector2(149, -107)
 
-[node name="Fire Alarm" type="AudioStreamPlayer" parent="Alarm"]
-stream = ExtResource("8_lx2pp")
-volume_db = -20.0
-bus = &"Alarm"
-
 [node name="Player" parent="." instance=ExtResource("1_pwvb8")]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_amij4")
@@ -56,18 +39,6 @@ scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
 friction = 10000.0
 fire_detection_distance = 200.0
-
-[node name="HealthBar" type="ProgressBar" parent="Player"]
-offset_left = 4.85586
-offset_top = -72.9167
-offset_right = 140.856
-offset_bottom = -45.9167
-theme_override_styles/background = SubResource("StyleBoxFlat_6b8rr")
-theme_override_styles/fill = SubResource("StyleBoxFlat_f47ey")
-value = 100.0
-show_percentage = false
-
-[node name="HealthBarTimer" type="Timer" parent="Player"]
 
 [node name="Background Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_o8y4u")
@@ -163,6 +134,7 @@ label_settings = SubResource("LabelSettings_ui2lh")
 horizontal_alignment = 1
 
 [node name="TimeDisplay" type="Label" parent="ScoreManager"]
+offset_left = 38.0
 offset_right = 314.0
 offset_bottom = 34.0
 text = "BLAH BLAH  BLAH BLAH"
@@ -176,39 +148,9 @@ scale = Vector2(0.662041, 0.5911)
 [node name="Extinguisher" parent="." instance=ExtResource("8_713w2")]
 position = Vector2(-15, -218)
 
-[node name="Extinguisher Sound" type="AudioStreamPlayer" parent="Extinguisher"]
-stream = ExtResource("12_qwb7x")
-volume_db = -5.0
-bus = &"Extinguisher"
-
 [node name="Restart Manager" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("11_276ya")
 
-[node name="ControlsButton" type="Button" parent="."]
-offset_left = 134.0
-offset_top = -223.0
-offset_right = 270.0
-offset_bottom = -191.0
-text = "Show Controls"
-
-[node name="ControlsPanel" type="Panel" parent="."]
-offset_left = 245.0
-offset_top = -151.0
-offset_right = 376.0
-offset_bottom = -48.0
-
-[node name="Label" type="Label" parent="ControlsPanel"]
-layout_mode = 0
-offset_right = 129.0
-offset_bottom = 106.0
-text = "Move: WASD
-Interact: E
-Use Item: F"
-
 [connection signal="alarm_activated" from="Alarm" to="." method="_on_alarm_alarm_activated"]
-[connection signal="value_changed" from="Player/HealthBar" to="." method="_on_progress_bar_value_changed"]
-[connection signal="value_changed" from="Player/HealthBar" to="Player" method="_on_health_bar_value_changed"]
-[connection signal="timeout" from="Player/HealthBarTimer" to="Player" method="_on_health_bar_timer_timeout"]
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
-[connection signal="pressed" from="ControlsButton" to="." method="_on_controls_button_pressed"]
