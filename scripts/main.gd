@@ -22,7 +22,6 @@ var is_large_fire: bool = false
 
 func _ready() -> void:
 	score_manager.add_to_group("score_manager")
-	controls_button.pressed.connect(_on_controls_button_pressed)
 	controls_panel.hide()
 
 	alarm_locations.append(Vector2(149,-107))

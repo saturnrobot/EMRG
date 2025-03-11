@@ -127,11 +127,12 @@ func check_fire_proximity() -> void:
 				exclamation.visible = false
 			if (fire != null):
 				fire.discover()
-		if global_position.distance_to(fire.global_position) < 200.0:
-			if health_bar_timer.is_stopped():
-				health_bar_timer.start()
-		if global_position.distance_to(fire.global_position) > 200.0:
-			health_bar_timer.stop()
+		if (fire != null):
+			if global_position.distance_to(fire.global_position) < 100.0:
+				if health_bar_timer.is_stopped():
+					health_bar_timer.start()
+			if global_position.distance_to(fire.global_position) > 100.0:
+				health_bar_timer.stop()
 
 func _on_health_bar_value_changed(change: float) -> void:
 	if damage_start == true:
