@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://xspc73vew4c0" path="res://music/fire-alarm-33770.mp3" id="8_lx2pp"]
 [ext_resource type="PackedScene" uid="uid://b3g40k2m6lqji" path="res://scenes/alarm.tscn" id="9_ri2ud"]
 [ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
+[ext_resource type="Script" uid="uid://ciaox3hrvbd0n" path="res://scripts/restart_manager.gd" id="11_276ya"]
 [ext_resource type="AudioStream" uid="uid://w7e0yrehgbg" path="res://music/extinguisher.mp3" id="12_qwb7x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
@@ -195,7 +196,7 @@ offset_bottom = -48.0
 
 [node name="Label" type="Label" parent="ControlsPanel"]
 layout_mode = 0
-offset_right = 129.0\
+offset_right = 129.0
 offset_bottom = 106.0
 text = "Move: WASD
 Interact: E
