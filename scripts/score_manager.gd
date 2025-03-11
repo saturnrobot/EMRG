@@ -108,6 +108,11 @@ func display_score() -> void:
 	restart_prompt.show()
 	time_display.show()
 	
+	# Hide the timer overlay
+	var timer_overlay = get_tree().get_first_node_in_group("timer_overlay")
+	if timer_overlay:
+		timer_overlay.reset()
+	
 	score_display.text = "Final Score: %d" % final_score
 	actions_display.text = "Actions Performed:\n" + "\n".join(actions_performed)
 	
@@ -120,15 +125,13 @@ func display_score() -> void:
 		scenario_display.text = "SMALL FIRE SCENARIO"
 		optimal_sequence_display.text = "Optimal Response:\n1. Discover Fire\n2. Grab Fire Extinguisher\n3. Extinguish Fire"
 	
-	#restart_prompt.text = "Press R to Restart"
-	
 	if current_level == total_levels:
 		restart_prompt.text = "Press R to Restart\nPress Esc to Exit"
 	else:
 		restart_prompt.text = "Press R to Restart\nPress N for Next Level"
 	
 	get_tree().paused = true
-
+	
 func reset_for_new_level() -> void:
 	total_score += current_score
 	
@@ -138,3 +141,15 @@ func reset_for_new_level() -> void:
 	
 	update_score_display()
 	hide_ui_elements()
+
+func time_expired() -> void:
+	record_action("time_expired", true)
+	current_score -= 50
+	
+	var timer_overlay = get_tree().get_first_node_in_group("timer_overlay")
+	if timer_overlay:
+		timer_overlay.reset()
+	
+	display_score()
+	
+	scenario_display.text += "\nTIME EXPIRED - FIRE SPREAD"

@@ -8,6 +8,14 @@ extends Node2D
 @onready var alarm = get_node("../Alarm")
 @onready var extinguisher = get_node("../Extinguisher")
 
+# Position far away to hide the library
+const FAR_AWAY_POSITION = Vector2(10000, 10000)
+
+func _ready() -> void:
+	# Move library scene far away at start
+	if library_scene:
+		library_scene.position = FAR_AWAY_POSITION
+
 func _process(_delta: float) -> void:
 	if get_tree().paused and Input.is_action_just_pressed("restart"):
 		get_tree().paused = false
@@ -24,8 +32,17 @@ func load_level(is_loading_same_level: int) -> void:
 		
 		# Reset the score and timer for the new level
 		score_manager.reset_for_new_level()
+		
+		# Stop all sounds
+		if main:
+			main.stop_all_sounds()
+		
+		# Reset the timer overlay
+		var timer_overlay = get_tree().get_first_node_in_group("timer_overlay")
+		if timer_overlay:
+			timer_overlay.reset()
 	
-		# Hide the house scene & reveal library
+		# Handle scene transitions
 		if score_manager.current_level == 1:
 			get_tree().reload_current_scene()
 		elif score_manager.current_level == 2:
@@ -36,8 +53,11 @@ func load_level(is_loading_same_level: int) -> void:
 			for fire in get_tree().get_nodes_in_group("fires"):
 				fire.queue_free()
 			
-			house_scene.visible = false
-			library_scene.visible = true
+			# Move house scene far away
+			house_scene.position = FAR_AWAY_POSITION
+			
+			# Move library scene to origin
+			library_scene.position = Vector2.ZERO
 			
 			# Reset fires and reposition interactables
 			if main:
@@ -50,7 +70,6 @@ func load_level(is_loading_same_level: int) -> void:
 			print("No more levels available.")
 			get_tree().paused = false
 			return
-
 
 func reset_player_position(level: int) -> void:
 	if player:

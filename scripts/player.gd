@@ -118,21 +118,43 @@ func get_closest_node(nodes: Array) -> Node:
 	return closest_node
 
 func check_fire_proximity() -> void:
+	if get_tree().paused:
+		return
+		
 	var fires = get_tree().get_nodes_in_group("fires")
+	var found_close_fire = false
+	
 	for fire in fires:
-		if global_position.distance_to(fire.global_position) < fire_detection_distance:
-			if !fire.discovered:
+		if not is_instance_valid(fire):
+			continue
+			
+		var distance = global_position.distance_to(fire.global_position)
+		
+		if distance < fire_detection_distance:
+			if not fire.discovered:
 				exclamation.visible = true
-				await get_tree().create_timer(2.0).timeout
-				exclamation.visible = false
-			if (fire != null):
+				var timer = Timer.new()
+				add_child(timer)
+				timer.wait_time = 2.0
+				timer.one_shot = true
+				timer.timeout.connect(func(): 
+					if is_instance_valid(exclamation):
+						exclamation.visible = false
+					timer.queue_free()
+				)
+				timer.start()
+			
+			if is_instance_valid(fire) and not fire.discovered:
 				fire.discover()
-		if (fire != null):
-			if global_position.distance_to(fire.global_position) < 100.0:
-				if health_bar_timer.is_stopped():
-					health_bar_timer.start()
-			if global_position.distance_to(fire.global_position) > 100.0:
-				health_bar_timer.stop()
+				
+		if distance < 200.0:
+			found_close_fire = true
+	
+	if found_close_fire:
+		if health_bar_timer.is_stopped():
+			health_bar_timer.start()
+	else:
+		health_bar_timer.stop()
 
 func _on_health_bar_value_changed(change: float) -> void:
 	if damage_start == true:
