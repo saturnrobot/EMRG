@@ -6,11 +6,16 @@ var activated: bool = false
 var spray_particles: CPUParticles2D
 var spray_area: Area2D
 @export var offset_distance: float = 20.0
+@export var max_fuel: float = 100.0
+var current_fuel: float = max_fuel
+@export var fuel_usage_rate: float = 10.0
 
 func _ready() -> void:
+	add_to_group("extinguishers")
 	spray_particles = $SprayParticles
 	spray_area = $SprayArea
 	spray_particles.emitting = false
+	current_fuel = max_fuel
 
 func _physics_process(_delta: float) -> void:
 	if held and is_instance_valid(holding_player):
@@ -38,12 +43,14 @@ func on_drop(_player: PlayerController) -> void:
 	spray_particles.emitting = false
 
 func activate() -> void:
-	if held:
+	if held and current_fuel > 0:
 		spray_particles.emitting = true
 		if not activated:
 			get_node("Extinguisher Sound").playing = true
 			activated = true
 		check_fire_collision()
+	elif current_fuel <= 0:
+		deactivate()
 
 func deactivate() -> void:
 	spray_particles.emitting = false
@@ -55,3 +62,10 @@ func check_fire_collision() -> void:
 	for body in bodies:
 		if body is Fire:
 			body.extinguish()
+
+func _process(delta: float) -> void:
+	if spray_particles.emitting and current_fuel > 0:
+		current_fuel -= fuel_usage_rate * delta
+		if current_fuel <= 0:
+			current_fuel = 0
+			deactivate()

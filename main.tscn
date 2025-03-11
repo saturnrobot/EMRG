@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=20 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" uid="uid://clptguy7acyax" path="res://scripts/main.gd" id="1_eltr2"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b5btrb5o05oyg" path="res://scenes/Exit.tscn" id="10_i1rq8"]
 [ext_resource type="Script" uid="uid://ciaox3hrvbd0n" path="res://scripts/restart_manager.gd" id="11_276ya"]
 [ext_resource type="AudioStream" uid="uid://w7e0yrehgbg" path="res://music/extinguisher.mp3" id="12_qwb7x"]
+[ext_resource type="Script" uid="uid://h3f2384kn7nb" path="res://scripts/timer_overlay.gd" id="15_vivmo"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
 
@@ -38,7 +39,7 @@ time_to_fire = 1.0
 position = Vector2(8, 20)
 
 [node name="Library" parent="." instance=ExtResource("4_odsef")]
-visible = false
+physics_interpolation_mode = 2
 scale = Vector2(2.245, 2.245)
 
 [node name="Alarm" parent="." instance=ExtResource("9_ri2ud")]
@@ -213,6 +214,27 @@ offset_bottom = 106.0
 text = "Move: WASD
 Interact: E
 Use Item: F"
+
+[node name="TimerOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("15_vivmo")
+
+[node name="TimerLabel" type="Label" parent="TimerOverlay"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -157.0
+offset_right = 157.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "BLAH BLAH  BLAH BLAH"
+label_settings = SubResource("LabelSettings_ui2lh")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FlameOverlay" type="ColorRect" parent="TimerOverlay"]
+offset_right = 1145.0
+offset_bottom = 648.0
+color = Color(1, 0.505, 0.00999999, 0.133333)
 
 [connection signal="alarm_activated" from="Alarm" to="." method="_on_alarm_alarm_activated"]
 [connection signal="value_changed" from="Player/HealthBar" to="." method="_on_progress_bar_value_changed"]
