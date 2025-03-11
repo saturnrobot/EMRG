@@ -11,9 +11,13 @@ var is_large_fire: bool = false
 
 @onready var score_manager = $ScoreManager
 @onready var player = $Player
+@onready var controls_button = $ControlsButton
+@onready var controls_panel = $ControlsPanel
 
 func _ready() -> void:
 	score_manager.add_to_group("score_manager")
+	controls_button.pressed.connect(_on_controls_button_pressed)
+	controls_panel.hide()
 
 func _on_alarm_alarm_activated() -> void:
 	score_manager.record_action("activated_alarm", true)
@@ -42,3 +46,6 @@ func _process(delta: float) -> void:
 		get_node("Fire Music").play()
 		fire = true
 		spawn_initial_fire()
+		
+func _on_controls_button_pressed() -> void:
+	controls_panel.visible = !controls_panel.visible	

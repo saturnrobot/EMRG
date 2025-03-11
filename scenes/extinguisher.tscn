@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bv21fqqsmxdsk"]
 
 [ext_resource type="Texture2D" uid="uid://xm8n8u6enm23" path="res://assets/extinguisher.png" id="1_p5vxq"]
-[ext_resource type="Script" path="res://scripts/extinguisher.gd" id="1_r8c8v"]
+[ext_resource type="Script" uid="uid://dptoougmuyc87" path="res://scripts/extinguisher.gd" id="1_r8c8v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adf0a"]
 size = Vector2(74, 147)

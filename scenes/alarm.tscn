@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3g40k2m6lqji"]
 
-[ext_resource type="Script" path="res://scripts/alarm.gd" id="1_ss6dx"]
+[ext_resource type="Script" uid="uid://d35y750eiyhpa" path="res://scripts/alarm.gd" id="1_ss6dx"]
 [ext_resource type="Texture2D" uid="uid://c7ghvgbtmgbiv" path="res://assets/alarm.png" id="2_rk1ol"]
 [ext_resource type="Shader" path="res://shaders/alarm.gdshader" id="3_av8h4"]
 [ext_resource type="Texture2D" uid="uid://b67v7lyuu8ir6" path="res://assets/square.png" id="4_5fg7b"]

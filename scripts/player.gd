@@ -11,11 +11,14 @@ var input_vector: Vector2 = Vector2.ZERO
 var current_velocity: Vector2 = Vector2.ZERO
 var is_holding_item: bool = false
 var held_item = null
+var damage_dealt; 
+var damage_start = true; 
 
 @onready var sprite: Sprite2D = $PlayerSprite
 @onready var interaction_area: Area2D = $InteractionArea
+@onready var health_bar = $HealthBar
+@onready var health_bar_timer = $HealthBarTimer
 @onready var exclamation: Sprite2D = $Exclamation
-
 
 func _ready() -> void:
 	$PlayerAnimation.play("idle")
@@ -123,3 +126,19 @@ func check_fire_proximity() -> void:
 				await get_tree().create_timer(2.0).timeout
 				exclamation.visible = false
 			fire.discover()
+		if global_position.distance_to(fire.global_position) < 100.0:
+			if health_bar_timer.is_stopped():
+				health_bar_timer.start()
+		if global_position.distance_to(fire.global_position) > 100.0:
+			health_bar_timer.stop()
+
+func _on_health_bar_value_changed(change: float) -> void:
+	if damage_start == true:
+		damage_start = false
+		var new_value = health_bar.value - change
+		health_bar.value = new_value 
+		print(health_bar.value)
+
+func _on_health_bar_timer_timeout() -> void:
+	_on_health_bar_value_changed(10)
+	damage_start = true
