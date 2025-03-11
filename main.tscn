@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7e2gka1ivr60"]
+[gd_scene load_steps=18 format=3 uid="uid://c7e2gka1ivr60"]
 
 [ext_resource type="PackedScene" uid="uid://cmyss4hohl33k" path="res://house.tscn" id="1_efsfi"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eltr2"]
@@ -15,6 +15,12 @@
 [ext_resource type="AudioStream" uid="uid://w7e0yrehgbg" path="res://music/extinguisher.mp3" id="12_qwb7x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_amij4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b8rr"]
+bg_color = Color(1, 0.341012, 0.296252, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f47ey"]
+bg_color = Color(0, 0.721216, 0.309921, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ui2lh"]
 font_size = 24
@@ -46,6 +52,18 @@ scale = Vector2(0.411874, 0.342857)
 max_speed = 500.0
 friction = 10000.0
 fire_detection_distance = 200.0
+
+[node name="HealthBar" type="ProgressBar" parent="Player"]
+offset_left = 4.85586
+offset_top = -72.9167
+offset_right = 140.856
+offset_bottom = -45.9167
+theme_override_styles/background = SubResource("StyleBoxFlat_6b8rr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f47ey")
+value = 100.0
+show_percentage = false
+
+[node name="HealthBarTimer" type="Timer" parent="Player"]
 
 [node name="Background Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_o8y4u")
@@ -163,5 +181,30 @@ bus = &"Extinguisher"
 process_mode = 3
 script = ExtResource("11_276ya")
 
+[node name="ControlsButton" type="Button" parent="."]
+offset_left = 134.0
+offset_top = -223.0
+offset_right = 270.0
+offset_bottom = -191.0
+text = "Show Controls"
+
+[node name="ControlsPanel" type="Panel" parent="."]
+offset_left = 245.0
+offset_top = -151.0
+offset_right = 376.0
+offset_bottom = -48.0
+
+[node name="Label" type="Label" parent="ControlsPanel"]
+layout_mode = 0
+offset_right = 129.0
+offset_bottom = 106.0
+text = "Move: WASD
+Interact: E
+Use Item: F"
+
 [connection signal="alarm_activated" from="Alarm" to="." method="_on_alarm_alarm_activated"]
+[connection signal="value_changed" from="Player/HealthBar" to="." method="_on_progress_bar_value_changed"]
+[connection signal="value_changed" from="Player/HealthBar" to="Player" method="_on_health_bar_value_changed"]
+[connection signal="timeout" from="Player/HealthBarTimer" to="Player" method="_on_health_bar_timer_timeout"]
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+[connection signal="pressed" from="ControlsButton" to="." method="_on_controls_button_pressed"]
